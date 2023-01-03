@@ -3,8 +3,9 @@ import fonction as f1
 import tkinter
 import PIL.Image, PIL.ImageTk
 import time
+import numpy as np
 
-classCascadefacial = cv.CascadeClassifier('haarcascade_frontalface_default.xml')
+classCascadefacial = cv.CascadeClassifier('cascade.xml')
 class Video:
 
     def __init__(self, video_source=0):
@@ -20,7 +21,8 @@ class Video:
         if self.webcam.isOpened():
                 bImgReady, imageframe = self.webcam.read() # get frame per frame from the webcam
                 if bImgReady:
-                    self.face = self.DetectionAndMark(imageframe, _haarclass)
+                    self.face = self.colordetect(imageframe,22,93,0, 45, 255, 255)
+                    #self.face = self.DetectionAndMark(imageframe, _haarclass)
                     return (bImgReady, cv.cvtColor(self.face, cv.COLOR_BGR2RGB))
     
                 else:
@@ -51,6 +53,27 @@ class Video:
                 self.data=1
             print('%s' %self.x)
         return self.imgreturn
+
+    def colordetect(self, _image, low1,low2,low3, high1, high2, high3):
+        imageFrame =  _image.copy()
+        hsvFrame = cv.cvtColor(imageFrame, cv.COLOR_BGR2HSV)
+        lower = np.array([low1, low2, low3], np.uint8)
+        upper = np.array([high1, high2, high3], np.uint8)
+        mask = cv.inRange(hsvFrame, lower, upper)
+        kernal = np.ones((5, 5), "uint8")
+        mask = cv.dilate(mask, kernal)
+        res = cv.bitwise_and(imageFrame, imageFrame, mask = mask)
+        contours, hierarchy = cv.findContours(mask,cv.RETR_TREE,cv.CHAIN_APPROX_SIMPLE)
+        for pic, contour in enumerate(contours):
+             area = cv.contourArea(contour)
+             if(area > 300):
+                 x, y, w, h = cv.boundingRect(contour)
+                 imageFrame = cv.rectangle(imageFrame, (x, y), (x + w, y + h), (0, 0, 255), 2)
+        return imageFrame  
+
+
+          
+
 
 
 class App:
