@@ -71,11 +71,6 @@ class Video:
                  imageFrame = cv.rectangle(imageFrame, (x, y), (x + w, y + h), (0, 0, 255), 2)
         return imageFrame  
 
-
-          
-
-
-
 class App:
     def __init__(self, window, window_title, video_source=0):
          self.window = window
@@ -110,6 +105,10 @@ class App:
     
 
 App(tkinter.Tk(), "Tkinter and OpenCV")
+
+
+
+
 
 
 
