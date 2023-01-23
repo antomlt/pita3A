@@ -12,15 +12,15 @@ result = np.zeros((image.shape[0], image.shape[1], 3), dtype=np.uint8)
 
 # Convert the image to grayscale
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-cv2.imshow("Gray", gray)
+#cv2.imshow("Gray", gray)
 
 # Apply Gaussian blur to the image
 blurred = cv2.GaussianBlur(gray, (5, 5), 0)
-cv2.imshow("Blurred", blurred)
+#cv2.imshow("Blurred", blurred)
 
 # Use the Canny edge detection algorithm to detect edges in the image
 edges = cv2.Canny(blurred, 50, 150)
-cv2.imshow("Edges", edges)
+#cv2.imshow("Edges", edges)
 
 # Define the lower and upper bounds of the WINDOW COLOR in the HSV color space  --> actual window color: Black
 lower_black = np.array([0, 0, 0])
@@ -31,7 +31,7 @@ hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
 # Create a mask that only selects pixels that fall within the lower and upper bounds of the black color
 mask = cv2.inRange(hsv, lower_black, upper_black)
-cv2.imshow("Mask", mask)
+#cv2.imshow("Mask", mask)
 
 # Find contours in the mask
 contours, _ = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
