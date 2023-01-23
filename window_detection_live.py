@@ -14,11 +14,12 @@ while True:
     # Apply Gaussian blur to the image
     blurred =  cv2.GaussianBlur(gray,(5, 5), 0)
 
-    # Create a binary thresholded image
-    _, threshold = cv2.threshold(blurred, 100, 255, cv2.THRESH_BINARY_INV)
+    # Create an adaptive binary thresholded image
+    adaptthresh = cv2.adaptiveThreshold(blurred, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 11, 2)
+    cv2.imshow("Webcam thresh", adaptthresh)
 
     # Find contours in the thresholded image
-    contours, _ = cv2.findContours(threshold, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+    contours, _ = cv2.findContours(adaptthresh, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
 
     # Iterate over the contours and draw a rectangle around any contour that is a rectangle
     for contour in contours:
