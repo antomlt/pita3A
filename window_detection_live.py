@@ -11,7 +11,7 @@ while True:
     # Convert the image to grayscale
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-    # Add blur
+    # Apply Gaussian blur to the image
     blurred =  cv2.GaussianBlur(gray,(5, 5), 0)
 
     # Create a binary thresholded image
