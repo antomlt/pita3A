@@ -17,7 +17,7 @@ while True:
     #cv2.imshow("Webcam blurred", blurred)
 
     # Create an adaptive binary thresholded image
-    # blocksize == 7 permet de reduire la sensibilité du threshold pour garder uniquement les contours les plus imposants
+    # blocksize == 15 permet de reduire la sensibilité du threshold pour garder uniquement les contours les plus importants
     adaptthresh = cv2.adaptiveThreshold(blurred, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 15, 2)
     cv2.imshow("Webcam thresh", adaptthresh)
 
